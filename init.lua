@@ -769,7 +769,16 @@ require('lazy').setup({
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
-        return '%2l:%-2v'
+        -- Try to get the venv name from venv-selector
+        local venv_path = require('venv-selector').venv()
+        
+        if venv_path then
+          -- Extract just the name from the path (e.g., ".venv" or "my-env")
+          local venv_name = vim.fn.fnamemodify(venv_path, ':t')
+          return string.format(' %s | %%2l:%%-2v', venv_name)
+        else
+          return '%2l:%-2v' -- Default location if no venv is active
+        end
       end
 
       -- ... and there is more!

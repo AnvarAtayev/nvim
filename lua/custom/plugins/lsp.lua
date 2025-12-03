@@ -120,6 +120,27 @@ return {
       vim.lsp.enable('marksman')
       
       -- Pyright (Ensure it is enabled since it is in ensure_installed)
+      vim.lsp.config('pyright', { -- or 'basedpyright' if you use that
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = 'workspace',
+            },
+          },
+        },
+        -- Automatically use the .venv in the current directory if it exists
+        on_init = function(client)
+          local cwd = vim.fn.getcwd()
+          local venv_path = cwd .. '/.venv/bin/python'
+          if vim.fn.executable(venv_path) == 1 then
+            client.config.settings.python.pythonPath = venv_path
+            client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+          end
+        end,
+      })
       vim.lsp.enable('pyright')
 
       -- =============================================================================

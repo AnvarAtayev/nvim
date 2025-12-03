@@ -7,7 +7,11 @@ return {
       iron.setup {
         config = {
           repl_definition = {
-            python = { command = { 'python3' } },
+            python = {
+              -- Use 'uv run' to execute ipython within the project's environment
+              command = { 'uv', 'run', 'ipython', '--no-autoindent' },
+              format = require('iron.fts.common').bracketed_paste,
+            },
           },
           repl_open_cmd = 'vertical botright 60 split',
         },
