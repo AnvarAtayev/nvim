@@ -17,7 +17,7 @@ return {
         },
         keymaps = {
           send_motion = '<leader>sc',
-          visual_send = '<leader>sc',
+          visual_send = '<leader>sl',
           send_line = '<leader>sl',
           send_file = '<leader>sf',
           cr = '<leader>s<cr>',
@@ -30,7 +30,7 @@ return {
       -- Example keymaps
       vim.keymap.set('n', '<leader>rs', '<cmd>IronRepl<cr>', { desc = 'Start REPL' })
       vim.keymap.set('n', '<leader>rr', '<cmd>IronRestart<cr>', { desc = 'Restart REPL' })
-      vim.keymap.set('n', '<leader>rl', '<cmd>IronFocus<cr>', { desc = 'Focus REPL' })
+      vim.keymap.set('n', '<leader>rf', '<cmd>IronFocus<cr>', { desc = 'Focus REPL' })
       vim.keymap.set('n', '<leader>rh', '<cmd>IronHide<cr>', { desc = 'Hide REPL' })
     end,
   },
