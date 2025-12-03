@@ -80,10 +80,9 @@ return {
       -- =============================================================================
       -- LSP SERVER CONFIGURATIONS
       -- =============================================================================
-      local lspconfig = require 'lspconfig'
 
       -- Rust Analyzer: Advanced Rust language support
-      lspconfig.rust_analyzer.setup {
+      vim.lsp.config('rust_analyzer', {
         capabilities = capabilities,
         settings = {
           ['rust-analyzer'] = {
@@ -92,10 +91,11 @@ return {
             },
           },
         },
-      }
+      })
+      vim.lsp.enable('rust_analyzer')
 
       -- Lua Language Server: Essential for Neovim configuration
-      lspconfig.lua_ls.setup {
+      vim.lsp.config('lua_ls', {
         capabilities = capabilities,
         settings = {
           Lua = {
@@ -110,12 +110,17 @@ return {
             telemetry = { enable = false },
           },
         },
-      }
+      })
+      vim.lsp.enable('lua_ls')
 
       -- Marksman: Markdown language server
-      lspconfig.marksman.setup {
+      vim.lsp.config('marksman', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('marksman')
+      
+      -- Pyright (Ensure it is enabled since it is in ensure_installed)
+      vim.lsp.enable('pyright')
 
       -- =============================================================================
       -- KEYMAPS: Essential LSP navigation and actions
