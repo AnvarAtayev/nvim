@@ -38,6 +38,15 @@ return {
 
       -- Apply colorscheme
       vim.cmd.colorscheme 'material'
+      
+      -- Redefine the 'Visual' group for high contrast.
+      -- This uses a strong, contrasting background color and makes the text bold.
+      vim.api.nvim_set_hl(0, 'Visual', {
+        bg = '#005f87', -- A dark blue/cyan background (highly visible on 'deep ocean')
+        fg = '#ffffff', -- White foreground
+        bold = true,    -- Bold text
+      })
+
     end,
   },
 }
