@@ -134,5 +134,52 @@ return {
         vim.keymap.set('n', '<C-S-p>', builtin.commands, {
             desc = 'Command Palette'
         })
+
+        -- Open folder function
+        local function open_folder()
+            local actions = require("telescope.actions")
+            local action_state = require("telescope.actions.state")
+
+            builtin.find_files({
+                prompt_title = "Open Folder",
+                cwd = vim.fn.expand("~"), -- Start searching from Home
+                
+                -- COMMAND: Use 'fd' to list directories only
+                -- --type d : Directories only
+                -- --max-depth 4 : Don't go too deep (speed)
+                -- --hidden : Find .config, .local, etc
+                find_command = { 
+                    "fd", "--type", "d", "--hidden", "--max-depth", "4",
+                    "--exclude", ".git",  "--exclude", "node_modules",
+                    "--exclude", "Library", "--exclude", "Music",
+                    "--exclude", "Movies", "--exclude", "Pictures"
+                },
+                
+                attach_mappings = function(prompt_bufnr, map)
+                    -- Overwrite <CR> to 'cd' instead of 'edit'
+                    actions.select_default:replace(function()
+                        actions.close(prompt_bufnr)
+                        local selection = action_state.get_selected_entry()
+                        
+                        if selection then
+                            -- Construct full path (Home + Relative Path)
+                            local full_path = vim.fn.expand("~") .. "/" .. selection[1]
+                            
+                            -- Change Directory
+                            vim.api.nvim_set_current_dir(full_path)
+                            print("Opened: " .. full_path)
+                            
+                            -- Optional: Immediately open file search in new project
+                            -- builtin.find_files({ cwd = full_path }) 
+                        end
+                    end)
+                    return true
+                end,
+                previewer = false,
+            })
+        end
+
+        -- Ctrl + O : Open Folder Picker
+        vim.keymap.set('n', '<C-o>', open_folder, { desc = 'Open Folder (Change Directory)' })
     end
 }
