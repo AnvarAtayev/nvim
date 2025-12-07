@@ -1,37 +1,43 @@
-return {
-  {
+return {{
     'Vigemus/iron.nvim',
     config = function()
-      local iron = require 'iron.core'
+        local iron = require 'iron.core'
 
-      iron.setup {
-        config = {
-          repl_definition = {
-            python = {
-              -- Use 'uv run' to execute ipython within the project's environment
-              command = { 'uv', 'run', 'ipython', '--no-autoindent' },
-              format = require('iron.fts.common').bracketed_paste,
+        iron.setup {
+            config = {
+                repl_definition = {
+                    python = {
+                        -- Use 'uv run' to execute ipython within the project's environment
+                        command = {'uv', 'run', 'ipython', '--no-autoindent'},
+                        format = require('iron.fts.common').bracketed_paste
+                    }
+                },
+                repl_open_cmd = 'vertical botright 60 split'
             },
-          },
-          repl_open_cmd = 'vertical botright 60 split',
-        },
-        keymaps = {
-          send_motion = '<leader>sc',
-          visual_send = '<leader>sl',
-          send_line = '<leader>sl',
-          send_file = '<leader>sf',
-          cr = '<leader>s<cr>',
-          interrupt = '<leader>si',
-          exit = '<leader>sq',
-          clear = '<leader>cl',
-        },
-      }
+            keymaps = {
+                send_motion = '<leader>sc',
+                visual_send = '<leader>sl',
+                send_line = '<leader>sl',
+                send_file = '<leader>sf',
+                cr = '<leader>s<cr>',
+                interrupt = '<leader>si',
+                exit = '<leader>sq',
+                clear = '<leader>cl'
+            }
+        }
 
-      -- Example keymaps
-      vim.keymap.set('n', '<leader>rs', '<cmd>IronRepl<cr>', { desc = 'Start REPL' })
-      vim.keymap.set('n', '<leader>rr', '<cmd>IronRestart<cr>', { desc = 'Restart REPL' })
-      vim.keymap.set('n', '<leader>rf', '<cmd>IronFocus<cr>', { desc = 'Focus REPL' })
-      vim.keymap.set('n', '<leader>rh', '<cmd>IronHide<cr>', { desc = 'Hide REPL' })
-    end,
-  },
-}
+        -- Example keymaps
+        vim.keymap.set('n', '<leader>rs', '<cmd>IronRepl<cr>', {
+            desc = 'Start REPL'
+        })
+        vim.keymap.set('n', '<leader>rr', '<cmd>IronRestart<cr>', {
+            desc = 'Restart REPL'
+        })
+        vim.keymap.set('n', '<leader>rf', '<cmd>IronFocus<cr>', {
+            desc = 'Focus REPL'
+        })
+        vim.keymap.set('n', '<leader>rh', '<cmd>IronHide<cr>', {
+            desc = 'Hide REPL'
+        })
+    end
+}}
